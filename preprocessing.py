@@ -11,7 +11,7 @@ def select_with_mask(pic_path, mask_path, out_dir):
     plane = Image.new("RGBA", img.size, (0, 0, 0, 0))
     res = Image.composite(img, plane, mask)
     res = res.crop(res.getbbox())
-    plane = Image.new("RGBA", im_size, (0, 0, 0, 0))
+    plane = Image.new("RGB", im_size, (0, 0, 0, 0))
     plane.paste(res, ((im_size[0] - res.size[0]) // 2, (im_size[1] - res.size[1]) // 2))
     plane.save(out_dir / pic_path.name)
 
