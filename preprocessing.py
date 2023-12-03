@@ -6,10 +6,14 @@ from PIL import Image
 
 def select_with_mask(pic_path, mask_path, out_dir):
     img = Image.open(pic_path)
+    im_size = img.size
     mask = Image.open(mask_path)
-    plane = Image.new("RGB", img.size, 0)
+    plane = Image.new("RGBA", img.size, (0, 0, 0, 0))
     res = Image.composite(img, plane, mask)
-    res.save(out_dir / pic_path.name)
+    res = res.crop(res.getbbox())
+    plane = Image.new("RGBA", im_size, (0, 0, 0, 0))
+    plane.paste(res, ((im_size[0] - res.size[0]) // 2, (im_size[1] - res.size[1]) // 2))
+    plane.save(out_dir / pic_path.name)
 
 
 def preprocess_images():
