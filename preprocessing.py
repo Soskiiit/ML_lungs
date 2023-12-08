@@ -29,6 +29,8 @@ def preprocess_images():
     out_train_path = out_path / "train_images"
     out_test_path = out_path / "test_images"
 
+    if not os.path.exists(out_path):
+        os.mkdir(out_path)
     if not os.path.exists(out_train_path):
         os.mkdir(out_train_path)
     if not os.path.exists(out_test_path):
